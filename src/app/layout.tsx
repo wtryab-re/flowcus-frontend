@@ -20,14 +20,7 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", "font-sans", geist.variable)}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <form name="contact" data-netlify="true" hidden>
-          <input type="text" name="name" />
-          <input type="email" name="email" />
-          <textarea name="message"></textarea>
-        </form>
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

@@ -13,13 +13,23 @@ export default function Contact() {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log("Submitted Feedback/Inquiry:", formData);
+  const handleFormSubmit = async (event: any) => {
+    event.preventDefault();
+    try {
+      await fetch("/forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      }).then((res) => {
+        console.log("Submitted", res);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -40,7 +50,11 @@ export default function Contact() {
 
       {/* Form Container */}
       <div className="rounded-2xl border border-(--brand-font-color)/20 p-4 sm:p-5 bg-(--brand-font-color)/2">
-        <form onSubmit={handleSubmit} className="space-y-6" data-netlify="true">
+        <form
+          onSubmit={handleFormSubmit}
+          className="space-y-6"
+          data-netlify="true"
+        >
           {/* Name & Email Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
@@ -52,7 +66,7 @@ export default function Contact() {
                 name="name"
                 required
                 value={formData.name}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 placeholder="Jane Doe"
                 className="w-full px-4 py-2 rounded-xl border border-(--brand-font-color)/20 bg-transparent focus:outline-none focus:border-(--brand-font-color) transition-all text-sm"
               />
