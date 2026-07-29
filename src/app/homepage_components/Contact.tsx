@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FiSend } from "react-icons/fi";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
+  const [myFormData, setMyFormData] = useState({
     name: "",
     email: "",
     subject: "",
@@ -14,23 +14,24 @@ export default function Contact() {
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     console.log(name, value);
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setMyFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleFormSubmit = async (event: any) => {
     event.preventDefault();
-    try {
+    const formData = new FormData(event.target);
       await fetch("/forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData).toString(),
       }).then((res) => {
-        console.log("Submitted", res);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+        console.log("Submitted", res)
+      setMyFormData({ name: "",
+    email: "",
+    subject: "",
+    message: "",})
+      })
+    .catch(error => alert(error));
 
   return (
     <section
@@ -54,6 +55,7 @@ export default function Contact() {
           onSubmit={handleFormSubmit}
           className="space-y-6"
           data-netlify="true"
+          method="POST"
         >
           {/* Name & Email Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -65,7 +67,7 @@ export default function Contact() {
                 type="text"
                 name="name"
                 required
-                value={formData.name}
+                value={myFormData.name}
                 onChange={(e) => handleChange(e)}
                 placeholder="Jane Doe"
                 className="w-full px-4 py-2 rounded-xl border border-(--brand-font-color)/20 bg-transparent focus:outline-none focus:border-(--brand-font-color) transition-all text-sm"
@@ -80,7 +82,7 @@ export default function Contact() {
                 type="email"
                 name="email"
                 required
-                value={formData.email}
+                value={myFormData.email}
                 onChange={handleChange}
                 placeholder="jane@example.com"
                 className="w-full px-4 py-2 rounded-xl border border-(--brand-font-color)/20 bg-transparent focus:outline-none focus:border-(--brand-font-color) transition-all text-sm"
@@ -97,7 +99,7 @@ export default function Contact() {
               type="text"
               name="subject"
               required
-              value={formData.subject}
+              value={myFormData.subject}
               onChange={handleChange}
               placeholder="How can we help?"
               className="w-full px-4 py-2 rounded-xl border border-(--brand-font-color)/20 bg-transparent focus:outline-none focus:border-(--brand-font-color) transition-all text-sm"
@@ -113,7 +115,7 @@ export default function Contact() {
               name="message"
               rows={3}
               required
-              value={formData.message}
+              value={myFormData.message}
               onChange={handleChange}
               placeholder="Type your message here..."
               className="w-full px-4 py-2 rounded-xl border border-(--brand-font-color)/20 bg-transparent focus:outline-none focus:border-(--brand-font-color) transition-all text-sm resize-none"
