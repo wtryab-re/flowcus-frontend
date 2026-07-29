@@ -31,7 +31,7 @@ export default function Contact() {
         ...myFormData,
       }).toString();
 
-      const res = await fetch("/", {
+      const res = await fetch("/forms", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body,
@@ -142,7 +142,7 @@ export default function Contact() {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="w-full px-8 py-2.5 rounded-xl border border-(--brand-font-color) bg-(--brand-font-color) text-(--brand-color) hover:opacity-90 transition-all font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm"
+              className="w-full px-8 py-2.5 rounded-xl border border-(--brand-font-color) bg-(--brand-font-color) text-(--brand-color) hover:opacity-90 transition-all font-extrabold text-sm flex items-center justify-center gap-2 shadow-sm hover:shadow-black cursor-pointer"
             >
               <FiSend className="w-4 h-4" />
               <span>Send</span>
