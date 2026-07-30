@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
 import toast from "react-hot-toast";
@@ -19,7 +18,6 @@ export default function Contact() {
     setMyFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // React 19+ standard form submission event type
   const handleFormSubmit = async (
     event: React.SubmitEvent<HTMLFormElement>,
   ) => {
@@ -30,7 +28,7 @@ export default function Contact() {
         ...myFormData,
       }).toString();
 
-      // POST to "/" instead of "/forms.html"
+      // Posting to "/" lets Netlify intercept the form cleanly without Next.js throwing a 404
       const res = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38,19 +36,16 @@ export default function Contact() {
       });
 
       if (res.ok) {
-        console.log("Submitted successfully");
-        toast.success("Submitted successfully");
+        toast.success("Submitted successfully!");
         setMyFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        console.error("Form submission failed", res.status);
-        toast.error("Error, try again");
+        toast.error("Submission failed. Please try again.");
       }
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred");
+      toast.error("An error occurred.");
     }
   };
-
   return (
     <section
       className="min-h-screen w-full px-4 sm:px-8 lg:px-12 py-4 max-w-4xl mx-auto text-(--brand-font-color)"
