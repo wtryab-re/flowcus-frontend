@@ -29,7 +29,7 @@ export default function Contact() {
       }).toString();
 
       // Posting to "/" lets Netlify intercept the form cleanly without Next.js throwing a 404
-      const res = await fetch("/", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body,

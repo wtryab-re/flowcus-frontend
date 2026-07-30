@@ -1,21 +1,12 @@
-<!doctype html>
 <html>
-  <head>
-    <title>Netlify Form Detection</title>
-  </head>
+  <head></head>
   <body>
-    <!-- Netlify parses this static HTML file during deployment -->
-    <form
-      name="contact"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      hidden
-    >
+    <form name="contact" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="contact" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="subject" />
-      <textarea name="message"></textarea>
+      <input name="name" type="text" />
+      <input name="email" type="email" />
+      <input name="subject" type="text" />
+      <input name="message" type="text" />
     </form>
   </body>
 </html>
