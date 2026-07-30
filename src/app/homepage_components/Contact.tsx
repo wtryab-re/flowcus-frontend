@@ -25,13 +25,13 @@ export default function Contact() {
   ) => {
     event.preventDefault();
     try {
-      // Encode form fields along with form-name for Netlify
       const body = new URLSearchParams({
         "form-name": "contact",
         ...myFormData,
       }).toString();
 
-      const res = await fetch("/forms.html", {
+      // POST to "/" instead of "/forms.html"
+      const res = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body,
