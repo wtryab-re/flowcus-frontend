@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
-
 import toast from "react-hot-toast";
 
 export default function Contact() {
@@ -20,6 +19,7 @@ export default function Contact() {
     setMyFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // React 19+ standard form submission event type
   const handleFormSubmit = async (
     event: React.SubmitEvent<HTMLFormElement>,
   ) => {
@@ -40,7 +40,6 @@ export default function Contact() {
       if (res.ok) {
         console.log("Submitted successfully");
         toast.success("Submitted successfully");
-        // Clear form state on success
         setMyFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         console.error("Form submission failed", res.status);
@@ -48,6 +47,7 @@ export default function Contact() {
       }
     } catch (error) {
       console.error(error);
+      toast.error("An error occurred");
     }
   };
 
